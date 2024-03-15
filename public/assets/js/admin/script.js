@@ -235,7 +235,7 @@ $(() => {
                 },
             },
             {
-                data: "paypal_transaction_id",
+                data: "transaction_id",
             },
             {
                 data: "resident",

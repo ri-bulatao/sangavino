@@ -22,11 +22,12 @@ class Request extends Model
         'business_name',
         'business_type',
         'business_location',
+        'reference_number',
         'resident_type',
         'residency_year',
         'status',
         'remark',
-        'paypal_transaction_id'
+        'transaction_id'
     ];
 
 

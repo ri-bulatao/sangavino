@@ -20,7 +20,7 @@
                             </div>
                             <div class="col-md-7">
                                 <h1>Issuance <i class="fas fa-info-circle ml-1"></i></h1><br>
-                                <h2 class="font-weight-normal">Paypal Transaction #: {{ $request->paypal_transaction_id }}
+                                <h2 class="font-weight-normal">Paypal Transaction #: {{ $request->transaction_id }}
                                 </h2>
                                 <h2 class="font-weight-normal">Requestor: {{ $request->user->resident->full_name }}</h2>
                                 <h2 class="font-weight-normal">Service: {{ $request->service->name }}</h2>

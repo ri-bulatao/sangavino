@@ -47,7 +47,7 @@
                                 <thead class="thead-light">
                                     <tr>
                                         <th>#</th>
-                                        <th>Paypal Transaction #</th>
+                                        <th>Transaction #</th>
                                         <th>Resident</th>
                                         <th>Service</th>
                                         <th>Purpose</th>

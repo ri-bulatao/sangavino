@@ -16,7 +16,7 @@ class RequestResource extends JsonResource
     {
         return [
             'id' => $this->id,
-            'paypal_transaction_id' => $this->paypal_transaction_id,
+            'transaction_id' => $this->transaction_id,
             'resident' => $this->user->resident->full_name,
             'service' => $this->service->name,
             'purpose' => $this->purpose,

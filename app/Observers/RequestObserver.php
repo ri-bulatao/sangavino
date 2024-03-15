@@ -31,7 +31,7 @@ class RequestObserver
      */
     public function updated(Request $request)
     {
-        //
+        $this->service->log_activity(model:$request, event:'updated', model_name:'Service Request', model_property_name: "");
     }
 
     /**
@@ -42,7 +42,7 @@ class RequestObserver
      */
     public function deleted(Request $request)
     {
-        //
+        $this->service->log_activity(model:$request, event:'deleted', model_name:'Service Request', model_property_name: "");
     }
 
     /**

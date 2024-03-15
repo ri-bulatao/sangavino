@@ -32,12 +32,12 @@
 
                         @include('layouts.includes.alert')
 
-                        <form action="{{ route('resident.paypal.handle') }}" method="post" id="request_form">
+                        <form action="{{ route('resident.paymaya.handle') }}" method="post" id="request_form">
                             @csrf
 
                             <div class="form-group mb-3">
                                 <label class="form-label">Select Service *</label>
-                                <select class="form-control" name="service_id" onchange="getServiceInfo(this)">
+                                <select class="form-control" name="service_id" onchange="getServiceInfo(this)" required>
                                     <option value=""></option>
                                     @foreach ($services as $service)
                                         <option value="{{ $service->id }}" data-description='{{ $service->description }}'
@@ -85,7 +85,7 @@
 
                             <button type="button" class="btn btn-lg btn-dark w-100" id="paypal-button-container"
                                 onclick="promptStore(event, '#request_form', 'Proceed to Payment?', 'Please double check your selected service. We do not offer a cancelation of request.', 'Yes')">
-                                Paypal Checkout <i class="fab fa-paypal ms-1 text-warning fa-lg"></i>
+                                PayMaya Checkout <i class="fa fa-shopping-cart ms-1 text-warning fa-lg"></i>
 
                             </button>
 
@@ -135,7 +135,7 @@
                 $('#service_fee').val(fee);
 
                 $('#display_amount').html(`
-                    <li><h3 class="font-weight-normal">Please pay amount of ₱ ${fee} using Paypal Checkout <i class='fab fa-paypal ml-1 text-warning'></i></h3></li>
+                    <li><h3 class="font-weight-normal">Please pay amount of ₱ ${fee} using Paymaya Checkout </h3></li>
                 `)
 
                 if (service.value == "4") {

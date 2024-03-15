@@ -21,7 +21,7 @@ class RequestController extends Controller
         {
             $requests = RequestResource::collection(
                 Request::query()
-                ->when($request->filled('service') && $request->service !== '0', fn($query) => $query->where('service_id', $request->service))
+                ->when($request->filled('service') && $request->service !== '0', fn($query) => $query->where('service_id', $request->service)->whereNotNull('transaction_id'))
                 ->with('service', 'user.resident')
                 ->orderBy('status', 'DESC')
                 ->get()

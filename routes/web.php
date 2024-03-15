@@ -38,6 +38,7 @@ use App\Http\Controllers\Secretary\{
 // Resident Restful Controllers
 use App\Http\Controllers\Resident\{
     PaypalController,
+    PaymayaController,
     RequestController
 };
 
@@ -47,8 +48,6 @@ use App\Http\Controllers\Guest\{
     MainController,
     OfficialController as GuestOfficialController
 };
-
-
 
 // Guest 
 Route::group(['as' => 'guest.'],function() {
@@ -94,13 +93,14 @@ Route::group(['middleware' => ['auth', 'secretary'], 'prefix' => 'secretary', 'a
 // Resident
 Route::group(['middleware' => ['auth', 'resident'], 'prefix' => 'resident', 'as' => 'resident.'],function() {
     Route::resource('issuance/requests', RequestController::class);
-
-    Route::controller(PaypalController::class)->group(function () {
-        Route::post('handle-payment', 'handle')->name('paypal.handle');
-        Route::get('cancel-payment', 'cancel')->name('paypal.cancel');
-        Route::get('payment-success', 'success')->name('paypal.success');
-    });
     
+    Route::controller(PaymayaController::class)->group(function () {
+        Route::post('handle-payment', 'handle')->name('paymaya.handle');
+        Route::get('cancel-payment', 'cancel')->name('paymaya.cancel');
+        Route::get('failed-payment', 'failed')->name('paymaya.failed');
+        Route::get('payment-success', 'success')->name('paymaya.success');
+        Route::get('payment-procees', 'processing')->name('paymaya.processing');
+    });
 });
 
 

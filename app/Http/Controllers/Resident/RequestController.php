@@ -16,7 +16,7 @@ class RequestController extends Controller
     {
         if(request()->ajax())
         {
-            return DataTables::of(Request::with('service')->whereBelongsTo(auth()->user())->orderBy('status', 'DESC')->get())
+            return DataTables::of(Request::with('service')->whereNotNull('transaction_id')->whereBelongsTo(auth()->user())->orderBy('status', 'DESC')->get())
                    ->addIndexColumn()
                    ->addColumn('actions', function($row) {
 

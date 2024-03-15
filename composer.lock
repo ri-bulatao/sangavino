@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "a360c317a3af1e1d6dc1f492d1c9fe7b",
+    "content-hash": "c7dc7b87a57b16141ea5317f21cbf236",
     "packages": [
         {
             "name": "asm89/stack-cors",
@@ -2067,6 +2067,153 @@
             "time": "2022-04-17T13:12:02+00:00"
         },
         {
+            "name": "lloricode/laravel-paymaya-sdk",
+            "version": "v0.4.0-alpha2",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/lloricode/laravel-paymaya-sdk.git",
+                "reference": "d41c4f8ceeeb5ad61830201fc6195a8701a12c01"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/lloricode/laravel-paymaya-sdk/zipball/d41c4f8ceeeb5ad61830201fc6195a8701a12c01",
+                "reference": "d41c4f8ceeeb5ad61830201fc6195a8701a12c01",
+                "shasum": ""
+            },
+            "require": {
+                "ext-json": "*",
+                "illuminate/contracts": "^7.0|^8.0|^9.0",
+                "lloricode/paymaya-sdk-php": "^0.5.0-alpha4",
+                "php": "^8.0",
+                "spatie/laravel-package-tools": "^1.1"
+            },
+            "require-dev": {
+                "composer-runtime-api": "^2.0",
+                "orchestra/testbench": "^5.0|^6.0|^7.0",
+                "pestphp/pest": "^1.16",
+                "pestphp/pest-plugin-laravel": "^1.1",
+                "spatie/laravel-ray": "^1.24.2",
+                "vimeo/psalm": "^4.4"
+            },
+            "type": "library",
+            "extra": {
+                "laravel": {
+                    "providers": [
+                        "Lloricode\\LaravelPaymaya\\LaravelPaymayaServiceProvider"
+                    ],
+                    "aliases": {
+                        "PaymayaSDKCheckoutClient": "Lloricode\\LaravelPaymaya\\Facades\\CheckoutFacade",
+                        "PaymayaSDKClient": "Lloricode\\LaravelPaymaya\\Facades\\ClientFacade",
+                        "PaymayaSDKCustomizationClient": "Lloricode\\LaravelPaymaya\\Facades\\CustomizationFacade",
+                        "PaymayaSDK": "Lloricode\\LaravelPaymaya\\Facades\\PaymayaFacade",
+                        "PaymayaSDKWebhhokClient": "Lloricode\\LaravelPaymaya\\Facades\\WebhookFacade"
+                    }
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Lloricode\\LaravelPaymaya\\": "src"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Lloric Mayuga Garcia",
+                    "email": "lloricode@gmail.com",
+                    "role": "Developer"
+                }
+            ],
+            "description": "SDK for Paymaya using Laravel",
+            "homepage": "https://github.com/lloricode/laravel-paymaya-sdk",
+            "keywords": [
+                "laravel",
+                "lloricode",
+                "paymaya",
+                "php",
+                "sdk"
+            ],
+            "support": {
+                "issues": "https://github.com/lloricode/laravel-paymaya-sdk/issues",
+                "source": "https://github.com/lloricode/laravel-paymaya-sdk"
+            },
+            "funding": [
+                {
+                    "url": "https://github.com/lloricde",
+                    "type": "github"
+                }
+            ],
+            "time": "2022-04-18T07:12:50+00:00"
+        },
+        {
+            "name": "lloricode/paymaya-sdk-php",
+            "version": "v0.5.0-alpha4",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/lloricode/paymaya-sdk-php.git",
+                "reference": "df1a1969aaf972f8fff6b3ecaeb748a7bcb5b984"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/lloricode/paymaya-sdk-php/zipball/df1a1969aaf972f8fff6b3ecaeb748a7bcb5b984",
+                "reference": "df1a1969aaf972f8fff6b3ecaeb748a7bcb5b984",
+                "shasum": ""
+            },
+            "require": {
+                "ext-json": "*",
+                "guzzlehttp/guzzle": "^6.5.5|^7.2",
+                "nesbot/carbon": "^2.41",
+                "php": "^8.0",
+                "spatie/data-transfer-object": "^3.6"
+            },
+            "require-dev": {
+                "composer-runtime-api": "^2.0",
+                "mockery/mockery": "^1.4",
+                "phly/keep-a-changelog": "^2.11",
+                "phpunit/phpunit": "^9.4",
+                "vimeo/psalm": "^4.0.1"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "Lloricode\\Paymaya\\": "src"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Lloric Mayuga Garcia",
+                    "email": "lloricode@gmail.com",
+                    "homepage": "https://www.linkedin.com/in/lloricode",
+                    "role": "Developer"
+                }
+            ],
+            "description": "Paymaya SDK for PHP",
+            "homepage": "https://github.com/lloricode/paymaya-sdk-php",
+            "keywords": [
+                "lloricode",
+                "paymaya",
+                "php",
+                "sdk"
+            ],
+            "support": {
+                "issues": "https://github.com/lloricode/paymaya-sdk-php/issues",
+                "source": "https://github.com/lloricode/paymaya-sdk-php"
+            },
+            "funding": [
+                {
+                    "url": "https://github.com/lloricde",
+                    "type": "github"
+                }
+            ],
+            "time": "2022-04-18T06:50:12+00:00"
+        },
+        {
             "name": "maatwebsite/excel",
             "version": "3.1.40",
             "source": {
@@ -3714,6 +3861,70 @@
                 }
             ],
             "time": "2022-08-05T17:58:37+00:00"
+        },
+        {
+            "name": "spatie/data-transfer-object",
+            "version": "3.9.1",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/spatie/data-transfer-object.git",
+                "reference": "1df0906c4e9e3aebd6c0506fd82c8b7d5548c1c8"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/spatie/data-transfer-object/zipball/1df0906c4e9e3aebd6c0506fd82c8b7d5548c1c8",
+                "reference": "1df0906c4e9e3aebd6c0506fd82c8b7d5548c1c8",
+                "shasum": ""
+            },
+            "require": {
+                "php": "^8.0"
+            },
+            "require-dev": {
+                "illuminate/collections": "^8.36",
+                "jetbrains/phpstorm-attributes": "^1.0",
+                "larapack/dd": "^1.1",
+                "phpunit/phpunit": "^9.5.5"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "Spatie\\DataTransferObject\\": "src"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Brent Roose",
+                    "email": "brent@spatie.be",
+                    "homepage": "https://spatie.be",
+                    "role": "Developer"
+                }
+            ],
+            "description": "Data transfer objects with batteries included",
+            "homepage": "https://github.com/spatie/data-transfer-object",
+            "keywords": [
+                "data-transfer-object",
+                "spatie"
+            ],
+            "support": {
+                "issues": "https://github.com/spatie/data-transfer-object/issues",
+                "source": "https://github.com/spatie/data-transfer-object/tree/3.9.1"
+            },
+            "funding": [
+                {
+                    "url": "https://spatie.be/open-source/support-us",
+                    "type": "custom"
+                },
+                {
+                    "url": "https://github.com/spatie",
+                    "type": "github"
+                }
+            ],
+            "abandoned": "spatie/laravel-data",
+            "time": "2022-09-16T13:34:38+00:00"
         },
         {
             "name": "spatie/image",
@@ -9750,5 +9961,5 @@
         "php": "^7.3|^8.0"
     },
     "platform-dev": [],
-    "plugin-api-version": "2.2.0"
+    "plugin-api-version": "2.3.0"
 }
