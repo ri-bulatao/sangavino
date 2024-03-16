@@ -67,4 +67,35 @@ class TextService {
         return $output;
 
     }
+
+    
+    public function custom_send($user, $message)
+    {   
+        $resident = $user;
+        $route = route('resident.requests.index');
+
+        $ch = curl_init();
+        $parameters = array(
+            'apikey' => '98601ec71e719e2f4144ad33da091bab', //Your API KEY
+            'number' => '09394175694',
+            'message' => $message,
+            'sendername' => 'SEMAPHORE'
+        );
+
+        curl_setopt( $ch, CURLOPT_URL,'https://semaphore.co/api/v4/messages' );
+        curl_setopt( $ch, CURLOPT_POST, 1 );
+
+        //Send the parameters set above with the request
+        curl_setopt( $ch, CURLOPT_POSTFIELDS, http_build_query( $parameters ) );
+
+        // Receive response from server
+        curl_setopt( $ch, CURLOPT_RETURNTRANSFER, true );
+        $output = curl_exec( $ch );
+        curl_close ($ch);
+
+        \Log::error($output);
+
+        return $output;
+
+    }
 }

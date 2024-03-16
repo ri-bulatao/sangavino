@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Resident;
 
+use App\Models\User;
 use App\Models\Service;
 use App\Models\Request as TransactionRequest;
 use Illuminate\Http\Request;
@@ -20,7 +21,9 @@ use Lloricode\Paymaya\Request\Checkout\Item;
 use Lloricode\Paymaya\Request\Checkout\MetaData;
 use Lloricode\Paymaya\Request\Checkout\RedirectUrl;
 use Lloricode\Paymaya\Request\Checkout\TotalAmount;
-// use Lloricode\Paymaya\Request\Webhook\Webhook;
+use Illuminate\Support\Facades\Mail;
+use App\Services\TextService;
+use App\Mail\GeneralUpdate;
 use PaymayaSDK;
 
 
@@ -140,6 +143,8 @@ class PaymayaController extends Controller
                 'transaction_id' => $request['id']
             ]);
 
+            $this->log_activity(model:$processed_request, event:'updated', model_name:'Service', model_property_name: $processed_request->service->reference_number);
+
             $processed_request->save();
 
             return to_route('resident.requests.index')->with(['success' => 'Service Requested Successfully. You will be receiving an email and sms notification once there is an update from your request.']);
@@ -172,7 +177,7 @@ class PaymayaController extends Controller
         
         $new_request = auth()->user()->requests()->create($services_request_form_data->toArray());
 
-        $this->log_activity(model:$new_request, event:'requested', model_name: 'Service', model_property_name: $new_request->service->name);
+        $this->log_activity(model:$new_request, event:'updated a requested', model_name: 'Service', model_property_name: $new_request->service->name);
 
         return redirect()
             ->route('resident.requests.index')
@@ -180,11 +185,26 @@ class PaymayaController extends Controller
     }
 
     
-    public function webhook_failed(Request $request)
+    public function webhook_failed(Request $request, TextService $text_service)
     {
-        $processed_request = TransactionRequest::where('reference_number', $request['requestReferenceNumber'])->first();
+        
+        $processed_request = TransactionRequest::first();
 
-        $processed_request->delete();
+        $this->log_activity(model:$processed_request, event:'deleted a requested', model_name:'Service', model_property_name: $processed_request->service->reference_number);
+
+        $user = User::with('resident')->find($processed_request->user_id);
+
+        $full_name = $user->resident->first_name . ' ' . $user->resident->last_name;
+
+        Mail::to($user->email)->send(new GeneralUpdate($full_name, 'You`re transaction has failed and was not processed.'));
+
+        $text_service->custom_send($user, 'You`re transaction has failed and was not processed.');
+
+        // $processed_request = TransactionRequest::where('reference_number', $request['requestReferenceNumber'])->first();
+
+        // $this->log_activity(model:$processed_request, event:'deleted a requested', model_name:'Service', model_property_name: $processed_request->service->reference_number);
+
+        // $processed_request->delete();
     }
 
 
