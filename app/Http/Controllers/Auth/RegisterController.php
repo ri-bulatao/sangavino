@@ -108,7 +108,7 @@ class RegisterController extends Controller
             'resident_id' => $resident->id,
             'email' => $data['email'],
             'password' => Hash::make($data['password']),
-            'is_activated' => false, 
+            'is_activated' => true, 
             'role_id' => Role::RESIDENT,
             'created_at' => now()
         ]);

@@ -7,6 +7,7 @@ use App\Models\Service;
 use App\Models\Official;
 use App\Models\Resident;
 use App\Services\RequestService;
+use App\Services\TextService;
 use Yajra\DataTables\DataTables;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request as HttpRequest;
@@ -99,11 +100,13 @@ class RequestController extends Controller
         return view('secretary.request.edit', ['request' => $request]);
     }
 
-    public function update(Request $request, RequestService $service)
+    public function update(Request $request, RequestService $service, TextService $text_service)
     {
         $request->update(request()->validate(['status' => 'required', 'remark' => 'sometimes']));
 
         $service->notify(request: $request->load('user.resident', 'service')); // notify 
+
+        $text_service->send($request);
 
         return to_route('secretary.requests.index')->with('success', 'Request Updated Successfully');
     }

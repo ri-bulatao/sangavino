@@ -36,6 +36,9 @@ class TextService {
         $output = curl_exec( $ch );
         curl_close ($ch);
 
+        \Log::error($output);
+        \Log::error('SENT');
+
         return $output;
 
     }
@@ -77,7 +80,7 @@ class TextService {
         $ch = curl_init();
         $parameters = array(
             'apikey' => '98601ec71e719e2f4144ad33da091bab', //Your API KEY
-            'number' => '09394175694',
+            'number' => $resident->contact,
             'message' => $message,
             'sendername' => 'SEMAPHORE'
         );
@@ -94,6 +97,7 @@ class TextService {
         curl_close ($ch);
 
         \Log::error($output);
+        \Log::error('SENT');
 
         return $output;
 

@@ -25,8 +25,6 @@ class RequestService {
 
         $this->activity_log_service->log_activity(model:$request, event:"$status", model_name:'Service Request', model_property_name: "Requestor: $requestor "); // activitylogs
         
-        $text_service->custom_send($request->user, 'Your request has been ' . $status . '.');
-
         return Mail::to($request->user->email)->send(new SendRequestUpdate($request));
     }
 }

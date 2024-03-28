@@ -145,9 +145,9 @@ class PaymayaController extends Controller
 
             $this->log_activity(model:$processed_request, event:'updated', model_name:'Service', model_property_name: $processed_request->service->reference_number);
 
-            Mail::to($user->email)->send(new GeneralUpdate($full_name, 'Your transaction is completed and the request is now for processing.'));
+            Mail::to($user->email)->send(new GeneralUpdate($full_name, 'Your transaction is completed and Service Requested Successfully. You will be receiving an email and sms notification once there is an update from your request.'));
 
-            $text_service->custom_send($user, 'Your transaction is completed and the request is now for processing.');
+            $text_service->custom_send($user, 'Your transaction is completed and Service Requested Successfully. You will be receiving an email and sms notification once there is an update from your request.');
 
             $processed_request->save();
 
@@ -185,7 +185,7 @@ class PaymayaController extends Controller
 
         return redirect()
             ->route('resident.requests.index')
-            ->with('success', $response['message'] ?? 'Your transaction has been processed, please wait while we paymaya process your payment!.');
+            ->with('success', $response['message'] ?? 'Your transaction has been processed, please wait while we paymaya process your payment!');
     }
 
     
