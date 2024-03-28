@@ -145,6 +145,10 @@ class PaymayaController extends Controller
 
             $this->log_activity(model:$processed_request, event:'updated', model_name:'Service', model_property_name: $processed_request->service->reference_number);
 
+            Mail::to($user->email)->send(new GeneralUpdate($full_name, 'Your transaction is completed and the request is now for processing.'));
+
+            $text_service->custom_send($user, 'Your transaction is completed and the request is now for processing.');
+
             $processed_request->save();
 
             return to_route('resident.requests.index')->with(['success' => 'Service Requested Successfully. You will be receiving an email and sms notification once there is an update from your request.']);
@@ -196,15 +200,13 @@ class PaymayaController extends Controller
 
         $full_name = $user->resident->first_name . ' ' . $user->resident->last_name;
 
-        Mail::to($user->email)->send(new GeneralUpdate($full_name, 'You`re transaction has failed and was not processed.'));
+        Mail::to($user->email)->send(new GeneralUpdate($full_name, 'Your transaction and request has failed and was not processed.'));
 
-        $text_service->custom_send($user, 'You`re transaction has failed and was not processed.');
+        $text_service->custom_send($user, 'Your transaction and request has failed and was not processed.');
 
-        // $processed_request = TransactionRequest::where('reference_number', $request['requestReferenceNumber'])->first();
+        $processed_request = TransactionRequest::where('reference_number', $request['requestReferenceNumber'])->first();
 
-        // $this->log_activity(model:$processed_request, event:'deleted a requested', model_name:'Service', model_property_name: $processed_request->service->reference_number);
-
-        // $processed_request->delete();
+        $processed_request->delete();
     }
 
 
