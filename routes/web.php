@@ -3,6 +3,12 @@
 // Facades
 use Illuminate\Support\Facades\{Auth,Route};
 
+
+// Shared Restful Controllers
+use App\Http\Controllers\Auth\{
+    VerificationController
+};
+
 // Shared Restful Controllers
 use App\Http\Controllers\All\{
     CommentController,
@@ -91,7 +97,7 @@ Route::group(['middleware' => ['auth', 'secretary'], 'prefix' => 'secretary', 'a
 
 
 // Resident
-Route::group(['middleware' => ['auth', 'resident'], 'prefix' => 'resident', 'as' => 'resident.'],function() {
+Route::group(['middleware' => ['auth', 'resident', 'verified'], 'prefix' => 'resident', 'as' => 'resident.'],function() {
     Route::resource('issuance/requests', RequestController::class);
     
     Route::controller(PaymayaController::class)->group(function () {
@@ -105,7 +111,7 @@ Route::group(['middleware' => ['auth', 'resident'], 'prefix' => 'resident', 'as'
 
 
 // Auth
-Route::group(['middleware' => ['auth']],function() {
+Route::group(['middleware' => ['auth', 'verified']],function() {
     Route::delete('tmp_upload/revert', [TmpImageUploadController::class, 'revert']);     // TMP FILE UPLOAD
     Route::post('tmp_upload/content', [TmpImageUploadController::class, 'faqImageUpload'])->name('tmpupload.faqImageUpload');
     Route::resource('tmp_upload', TmpImageUploadController::class);
@@ -116,5 +122,12 @@ Route::group(['middleware' => ['auth']],function() {
 });
 
 
+// Auth
+Route::group(['middleware' => ['auth']],function() {
+    Route::get('email/verify', [VerificationController::class, 'show'])->name('verification.notice');
+    Route::get('email/verify/{id}/{hash}', [VerificationController::class, 'verify'])->name('verification.verify');
+});
 
-Auth::routes(['register' => false]);
+Route::middleware(['web', 'guest'])->group(function () {
+    Auth::routes(['verify' => true]);
+});

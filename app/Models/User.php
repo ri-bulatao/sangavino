@@ -16,7 +16,7 @@ use Illuminate\Database\Eloquent\Relations\HasOne;
 use Spatie\MediaLibrary\MediaCollections\Models\Media;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 
-class User extends Authenticatable implements HasMedia
+class User extends Authenticatable implements HasMedia, MustVerifyEmail
 {
     use HasFactory, 
     HasManyRequest, 

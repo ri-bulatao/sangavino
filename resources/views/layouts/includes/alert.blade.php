@@ -1,4 +1,4 @@
-@if (Route::is('login'))
+@if (Route::is('login') || Route::is('register'))
 
     @if (session('success') || session('warning') || session('error'))
         <div class="alert @if (session('success')) alert-success @endif @if (session('warning')) alert-warning @endif @if (session('error')) alert-danger @endif  alert-dismissible fade show p-3 text-white"

@@ -16,7 +16,7 @@
     </div>
     <!-- Spinner End -->
 
-    @if (url()->current() !== route('login') && !Route::is('password.*'))
+    @if (!Route::is('password.*'))
         <!-- Navbar Start -->
         <nav class="navbar navbar-expand-lg bg-success navbar-dark sticky-top py-lg-0 px-lg-5 wow fadeIn"
             data-wow-delay="0.1s">
@@ -41,6 +41,9 @@
                     <a href="/#contactus" class="nav-item nav-link">Contact Us</a>
                     @guest
                         <a href="{{ route('login') }}" class="nav-item nav-link" id="login_nav">Login</a>
+                    @endguest
+                    @guest
+                        <a href="{{ route('register') }}" class="nav-item nav-link" id="register_nav">Register</a>
                     @endguest
                     @auth
                         <div class="dropdown nav-item">

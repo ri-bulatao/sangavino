@@ -115,6 +115,6 @@
                 password_field.setAttribute('type', 'password')
         })
 
-        $('#main_login_nav').addClass('active')
+        $('#login_nav').addClass('active')
     </script>
 @endsection
