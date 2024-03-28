@@ -33,12 +33,13 @@ class LoginController extends Controller
                'resident' => to_route('resident.requests.index'),
             };
          } 
-         else 
-         {
-
+         else if (! $user->hasVerifiedEmail()) {
             $request->session()->flush();
-            return redirect('/login')->with('message', 'Unauthorized User');
-
+            return redirect('/login')->with('error', 'Your email is not yet verified, if request has expired please contact the administrator.');
+         } else
+         {
+            $request->session()->flush();
+            return redirect('/login')->with('error', 'Unauthorized User');
          }
     }
 }

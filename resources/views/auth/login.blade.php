@@ -24,23 +24,6 @@
                                                 src="{{ asset('img/logo/logo.png') }}" width="75" alt="logo">
                                             <span class="h2 fw-bold mb-0 text-success">{{ config('app.name') }}</span>
 
-                                            <div class='dropdown ms-auto' title="go to page">
-                                                <a class='text-success' href='#' role='button'
-                                                    data-bs-toggle='dropdown' aria-haspopup='true' aria-expanded='false'>
-                                                    <i class="fas fa-arrow-right"></i>
-                                                </a>
-                                                <div class='dropdown-menu dropdown-menu-right dropdown-menu-arrow'>
-                                                    <a class='dropdown-item' href="/">Home</a>
-                                                    <a class='dropdown-item'
-                                                        href="{{ route('guest.announcements.index') }}">Announcement</a>
-                                                    <a class='dropdown-item'
-                                                        href="{{ route('guest.officials.index') }}">Officials</a>
-                                                    <a class='dropdown-item'
-                                                        href="{{ route('resident.requests.create') }}">Issuance</a>
-                                                    <a class='dropdown-item' href="javascript:void(0)">Contact Us</a>
-                                                </div>
-                                            </div>
-
                                         </div>
 
                                         <h5 class="fw-normal mb-3 pb-3" style="letter-spacing: 1px;">Sign in to your account

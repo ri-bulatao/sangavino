@@ -2,7 +2,12 @@
 
 namespace App\Http\Controllers\Auth;
 
+use App\Models\User;
 use App\Http\Controllers\Controller;
+use Illuminate\Http\Request;
+use Illuminate\Auth\Events\Verified;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\URL;
 use App\Providers\RouteServiceProvider;
 use Illuminate\Foundation\Auth\VerifiesEmails;
 
@@ -35,23 +40,9 @@ class VerificationController extends Controller
      */
     public function __construct()
     {
-        $this->middleware('auth');
         $this->middleware('signed')->only('verify');
         $this->middleware('throttle:6,1')->only('verify', 'resend');
     }
-
-    
-    /**
-     * Show the email verification notice.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\View\View
-     */
-    public function show(Request $request)
-    {
-        return view('verify');
-    }
-
     
     /**
      * Mark the user's email address as verified.
@@ -59,23 +50,24 @@ class VerificationController extends Controller
     public function verify(Request $request, User $user)
     {
         if (! URL::hasValidSignature($request)) {
-            return response()->json([
-                'status' => trans('verification.invalid'),
-            ], 400);
+            return view('auth.verification.verification', ['status' => 'invalid']);
         }
 
         if ($user->hasVerifiedEmail()) {
-            return response()->json([
-                'status' => trans('verification.already_verified'),
-            ], 400);
+            return view('auth.verification.verification', ['status' => 'already_verified']);
         }
 
         $user->markEmailAsVerified();
+        
+        $user->is_activated = 1;
+
+        $user->save();
 
         event(new Verified($user));
+        
+        // Authenticate the user
+        Auth::login($user);
 
-        return response()->json([
-            'status' => trans('verification.verified'),
-        ]);
+        return view('auth.verification.verification', ['status' => 'verified']);
     }
 }

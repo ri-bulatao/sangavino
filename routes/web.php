@@ -60,6 +60,8 @@ Route::group(['as' => 'guest.'],function() {
     Route::get('/', MainController::class)->name('main.index');
     Route::get('officials', GuestOfficialController::class)->name('officials.index');
     Route::resource('announcements', GuestAnnouncementController::class)->only(['index', 'show']);
+    Route::get('email/verify', [VerificationController::class, 'show'])->name('verification.notice');
+    Route::get('email/verify/{user}/{hash}', [VerificationController::class, 'verify'])->name('verification.verify');
 });
 
 
@@ -122,12 +124,4 @@ Route::group(['middleware' => ['auth', 'verified']],function() {
 });
 
 
-// Auth
-Route::group(['middleware' => ['auth']],function() {
-    Route::get('email/verify', [VerificationController::class, 'show'])->name('verification.notice');
-    Route::get('email/verify/{id}/{hash}', [VerificationController::class, 'verify'])->name('verification.verify');
-});
-
-Route::middleware(['web', 'guest'])->group(function () {
-    Auth::routes(['verify' => true]);
-});
+Auth::routes(['verify' => true]);
