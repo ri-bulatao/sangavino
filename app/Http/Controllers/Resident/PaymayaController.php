@@ -60,7 +60,7 @@ class PaymayaController extends Controller
                     ->setFirstName($this->user->first_name)
                     ->setMiddleName($this->user->middle_name)
                     ->setLastName($this->user->last_name)
-                    ->setBirthday(Carbon::parse($this->user->birt_date))
+                    ->setBirthday(Carbon::parse($this->user->birth_date)->format('Y-m-d'))
                     ->setGender($this->user->gender === 'male' ? 'M' : 'F')
                     ->setContact(
                         (new Contact())
@@ -79,18 +79,18 @@ class PaymayaController extends Controller
                     ->setDescription($service->description)
                     ->setAmount(
                         (new Amount())
-                            ->setValue($service->fee)
+                            ->setValue((float) $service->fee)
                             ->setDetails(
                                 (new AmountDetail())
-                                    ->setSubtotal($service->fee)
+                                    ->setSubtotal((float) $service->fee)
                             )
                     )
                     ->setTotalAmount(
-                        (new Amount())
-                            ->setValue($service->fee)
+                            (new Amount())
+                            ->setValue((float) $service->fee)
                             ->setDetails(
                                 (new AmountDetail())
-                                ->setSubtotal($service->fee)
+                                    ->setSubtotal((float) $service->fee)
                             )
                     )
             )
