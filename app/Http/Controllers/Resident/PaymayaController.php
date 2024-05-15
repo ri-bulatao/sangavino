@@ -98,7 +98,7 @@ class PaymayaController extends Controller
                 (new RedirectUrl())
                     # Testing only
                     // ->setSuccess('http://sangavino.test/resident/payment-success')
-                    ->setSuccess(route('resident.paymaya.processing'))
+                    ->setSuccess(route('resident.paymaya.success'))
                     ->setFailure(route('resident.paymaya.failed'))
                     ->setCancel(route('resident.paymaya.cancel'))
             )->setRequestReferenceNumber($referenceNumber)
