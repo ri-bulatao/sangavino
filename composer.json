@@ -8,7 +8,7 @@
     ],
     "license": "MIT",
     "require": {
-        "php": "^7.3|^8.0",
+        "php": "^7.3|^8.0|^8.2",
         "fruitcake/laravel-cors": "^2.0",
         "guzzlehttp/guzzle": "^7.0.1",
         "laravel/framework": "^9.0",
@@ -19,7 +19,10 @@
         "spatie/laravel-medialibrary": "^9.0.0",
         "srmklive/paypal": "~3.0",
         "tightenco/ziggy": "^1.2",
-        "yajra/laravel-datatables": "^1.5"
+        "yajra/laravel-datatables": "^1.5",
+        "nette/schema": "^1.2.3",
+        "nette/utils": "^3.2.8",
+        "phpspec/prophecy": "^1.15.1"
     },
     "require-dev": {
         "spatie/laravel-ignition": "^1.0",
