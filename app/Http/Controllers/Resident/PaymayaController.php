@@ -133,48 +133,32 @@ class PaymayaController extends Controller
 
     public function success(Request $request)
     {
-        $processed_request = TransactionRequest::where('reference_number', $request['requestReferenceNumber'])->first();
 
-        // if it is success then execute order || save data to the database
-        $processed_request->update([
-            'transaction_id' => $request['id']
-        ]);
+        if (isset($request['status']) && $request['status'] == 'COMPLETED') 
+        {
+            $processed_request = TransactionRequest::where('reference_number', $request['requestReferenceNumber'])->first();
 
-        $this->log_activity(model:$processed_request, event:'updated', model_name:'Service', model_property_name: $processed_request->service->reference_number);
+            // if it is success then execute order || save data to the database
+            $processed_request->update([
+                'transaction_id' => $request['id']
+            ]);
 
-        Mail::to($user->email)->send(new GeneralUpdate($full_name, 'Your transaction is completed and Service Requested Successfully. You will be receiving an email and sms notification once there is an update from your request.'));
+            $this->log_activity(model:$processed_request, event:'updated', model_name:'Service', model_property_name: $processed_request->service->reference_number);
 
-        $text_service->custom_send($user, 'Your transaction is completed and Service Requested Successfully. You will be receiving an email and sms notification once there is an update from your request.');
+            Mail::to($user->email)->send(new GeneralUpdate($full_name, 'Your transaction is completed and Service Requested Successfully. You will be receiving an email and sms notification once there is an update from your request.'));
 
-        $processed_request->save();
+            $text_service->custom_send($user, 'Your transaction is completed and Service Requested Successfully. You will be receiving an email and sms notification once there is an update from your request.');
 
-        return to_route('resident.requests.index')->with(['success' => 'Service Requested Successfully. You will be receiving an email and sms notification once there is an update from your request.']);
+            $processed_request->save();
 
-        // if (isset($request['status']) && $request['status'] == 'COMPLETED') 
-        // {
-        //     $processed_request = TransactionRequest::where('reference_number', $request['requestReferenceNumber'])->first();
-
-        //     // if it is success then execute order || save data to the database
-        //     $processed_request->update([
-        //         'transaction_id' => $request['id']
-        //     ]);
-
-        //     $this->log_activity(model:$processed_request, event:'updated', model_name:'Service', model_property_name: $processed_request->service->reference_number);
-
-        //     Mail::to($user->email)->send(new GeneralUpdate($full_name, 'Your transaction is completed and Service Requested Successfully. You will be receiving an email and sms notification once there is an update from your request.'));
-
-        //     $text_service->custom_send($user, 'Your transaction is completed and Service Requested Successfully. You will be receiving an email and sms notification once there is an update from your request.');
-
-        //     $processed_request->save();
-
-        //     return to_route('resident.requests.index')->with(['success' => 'Service Requested Successfully. You will be receiving an email and sms notification once there is an update from your request.']);
-        // } 
-        // else 
-        // {
-        //     return redirect()
-        //         ->route('resident.requests.index')
-        //         ->with('error', $response['message'] ?? 'Something went wrong.');
-        // }
+            return to_route('resident.requests.index')->with(['success' => 'Service Requested Successfully. You will be receiving an email and sms notification once there is an update from your request.']);
+        } 
+        else 
+        {
+            return redirect()
+                ->route('resident.requests.index')
+                ->with('error', $response['message'] ?? 'Something went wrong.');
+        }
     }
     
     public function cancel()
@@ -191,20 +175,34 @@ class PaymayaController extends Controller
             ->with('error', $response['message'] ?? 'There`s a problem with the transaction.');
     }
     
-    public function processing()
+    public function processing(TextService $text_service)
     {
         $services_request_form_data = collect(session()->get('services_request_form_data'));  // attach the services_request_form_data session
         
         $new_request = auth()->user()->requests()->create($services_request_form_data->toArray());
 
-
         $this->log_activity(model:$new_request, event:'updated a requested', model_name: 'Service', model_property_name: $new_request->service->name);
-        $this->success($new_request);
-        
 
-        // return redirect()
-        //     ->route('resident.requests.index')
-        //     ->with('success', $response['message'] ?? 'Your transaction has been processed, please wait while we paymaya process your payment!');
+        $processed_request = TransactionRequest::where('reference_number', $new_request['reference_number'])->first();
+
+        $user = auth()->user();
+
+        // if it is success then execute order || update data to the database
+        $processed_request->update([
+            'transaction_id' => $processed_request->id . '-' . $processed_request->reference_number
+        ]);
+
+        $this->log_activity(model:$processed_request, event:'updated', model_name:'Service', model_property_name: $processed_request->service->reference_number);
+
+        Mail::to($user->email)->send(new GeneralUpdate($user->resident->full_name, 'Your transaction is completed and Service Requested Successfully. You will be receiving an email and sms notification once there is an update from your request.'));
+
+        $text_service->custom_send($user, 'Your transaction is completed and Service Requested Successfully. You will be receiving an email and sms notification once there is an update from your request.');
+
+        $processed_request->save();
+
+        return redirect()
+            ->route('resident.requests.index')
+            ->with('success', $response['message'] ?? 'Service Requested Successfully. You will be receiving an email and sms notification once there is an update from your request.');
     }
 
     
