@@ -23,7 +23,7 @@ return new class extends Migration
             $table->string('business_type')->nullable();
             $table->string('business_location')->nullable();
             $table->string('residency_year')->nullable();
-            $table->string('reference_number');
+            $table->string('reference_number')->nullable();
             $table->integer('status')->default(0);
             $table->mediumText('remark')->nullable();
             $table->string('transaction_id')->nullable();
