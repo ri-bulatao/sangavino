@@ -49,10 +49,10 @@ class PaymayaController extends Controller
         $checkout = (new Checkout())
             ->setTotalAmount(
                 (new TotalAmount())
-                    ->setValue( $service->fee)
+                    ->setValue((float) $service->fee)
                     ->setDetails(
                         (new AmountDetail())
-                            ->setSubtotal($service->fee)
+                            ->setSubtotal((float) $service->fee)
                     )
             )
             ->setBuyer(
