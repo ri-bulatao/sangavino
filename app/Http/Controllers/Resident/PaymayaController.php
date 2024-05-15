@@ -60,7 +60,7 @@ class PaymayaController extends Controller
                     ->setFirstName($this->user->first_name)
                     ->setMiddleName($this->user->middle_name)
                     ->setLastName($this->user->last_name)
-                    ->setBirthday(Carbon::parse($this->user->birth_date)->format('Y-m-d'))
+                    ->setBirthday(Carbon::parse($this->user->birth_date))
                     ->setGender($this->user->gender === 'male' ? 'M' : 'F')
                     ->setContact(
                         (new Contact())
