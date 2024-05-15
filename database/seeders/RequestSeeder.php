@@ -30,7 +30,7 @@ class RequestSeeder extends Seeder
                 'residency_year' => null,
                 'resident_type' => null,
                 'status' => 0,
-                'transaction_id' => 'nf7594d4-51aa-45ff-b5a3-242ef3ae5z2b',
+                'transaction_id' => '1-21F41997GB955064H',
                 'created_at' => now()
             ],
 
@@ -47,7 +47,7 @@ class RequestSeeder extends Seeder
                 'residency_year' => null,
                 'resident_type' => null,
                 'status' => 0,
-                'transaction_id' => 'af7594d4-51aa-45cf-b5a3-242ef3ae5g9z',
+                'transaction_id' => '2-12F41997GB955064H',
                 'created_at' => now()
             ],
 
@@ -64,7 +64,7 @@ class RequestSeeder extends Seeder
                 'residency_year' => '15',
                 'resident_type' => 'permanent resident',
                 'status' => 0,
-                'transaction_id' => 'af7594d4-51aa-45cf-b5f3-242ef3ae5d9l',
+                'transaction_id' => '3-11F41947GB955064H',
                 'created_at' => now()
             ],
 
@@ -81,7 +81,7 @@ class RequestSeeder extends Seeder
                 'residency_year' => null,
                 'resident_type' => null,
                 'status' => 0,
-                'transaction_id' => 'ae7594d4-51aa-45cf-b5a3-242ef3ae5d9a',
+                'transaction_id' => '4-12F41997GB955064H',
                 'created_at' => now()
             ],
         );
